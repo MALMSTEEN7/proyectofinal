@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kawasaki Colombia</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d0d;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Encabezado */
+    header {
+      background-color: #0d0d0d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 3px solid #00ff5e;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+    }
+
+    /* Luz verde suave detrás del logo */
+    .logo::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle, rgba(0,255,94,0.5) 0%, rgba(0,255,94,0) 70%);
+      border-radius: 50%;
+      filter: blur(12px);
+      z-index: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .logo img {
+      position: relative;
+      z-index: 1;
+      width: 60px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      color: #00ff5e;
+      font-size: 28px;
+      margin: 0;
+    }
+
+    .logo span {
+      display: block;
+      color: #ccc;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    /* Menú hamburguesa */
+    .menu-btn {
+      width: 40px;
+      height: 30px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-btn span {
+      background-color: white;
+      height: 4px;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Contenedor de redes sociales */
+    .social {
+      position: absolute;
+      top: 70px;
+      right: 40px;
+      background-color: #141414;
+      border: 2px solid #00ff5e;
+      border-radius: 12px;
+      padding: 15px 20px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: 0 0 10px rgba(0, 255, 94, 0.3);
+      z-index: 10;
+    }
+
+    .social.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .social a img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .social a img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Contenedor principal */
+    main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      gap: 40px;
+    }
+
+    /* Botones de modelos */
+    .modelos {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modelos button {
+      background-color: #00ff5e;
+      color: black;
+      border: none;
+      border-radius: 40px;
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .modelos button:hover {
+      background-color: #00cc4a;
+      transform: scale(1.05);
+    }
+
+    /* Tarjeta moto */
+    .tarjeta {
+      background-color: #141414;
+      border-radius: 20px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      box-shadow: 0 0 15px rgba(0, 255, 94, 0.2);
+    }
+
+    .tarjeta img {
+      width: 420px;
+    }
+
+    .info {
+      max-width: 400px;
+    }
+
+    .info h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .info ul {
+      list-style: none;
+      padding: 0;
+      color: #ccc;
+      line-height: 1.8;
+    }
+
+    .info ul li::before {
+      content: "• ";
+      color: #00ff5e;
+    }
+
+    .mas-info {
+      color: #00ff5e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .extra-info {
+      display: none;
+      margin-top: 10px;
+      color: #bbb;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .precio {
+      margin-top: 20px;
+      display: inline-block;
+      background-color: #00ff5e;
+      color: black;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 10px 25px;
+      border-radius: 40px;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 3px solid #00ff5e;
+      padding: 10px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="./R-removebg-preview.png" alt="Logo Kawasaki">
+      <div>
+        <h1>KAWASAKI</h1>
+        <span>Ride your edge — selecciona un modelo</span>
+      </div>
+    </div>
+
+    <!-- Botón hamburguesa -->
+    <div class="menu-btn" id="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Redes sociales con enlaces oficiales -->
+    <div class="social" id="social">
+      <a href="https://www.instagram.com/kawasaki_colombia/" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+      </a>
+      <a href="https://www.facebook.com/kawasakicolombia/" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+      </a>
+      <a href="https://www.youtube.com/@KawasakiMotorsEU/videos" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="modelos">
+      <button onclick="window.open('https://www.kawasaki.com/en-us/motorcycle/ninja/hypersport/ninja-h2r')">Ninja</button>
+      <button onclick="window.open('https://www.kawasaki.com/en-us/motorcycle/z/z-hypernaked/z-h2')">Z</button>
+      <button onclick="window.open('https://www.kawasaki.com/en-us/motorcycle/ninja/supersport/ninja-zx-10r')">ZX-10R</button>
+    </div>
+
+    <div class="tarjeta">
+      <img src="./76ebd19f564f0f6c-removebg-preview.png" alt="Kawasaki Ninja H2">
+      <div class="info">
+        <h2>Kawasaki Ninja H2</h2>
+        <ul>
+          <li>Motor: 998 cc, supercharged</li>
+          <li>Potencia: ~310 HP</li>
+          <li>Peso: aprox. 238 kg</li>
+          <li>Frenos: Brembo, ABS avanzado</li>
+        </ul>
+        <a class="mas-info" id="mas-info-btn">MÁS INFO.</a>
+        <div class="extra-info" id="extra-info">
+          <p>La Ninja H2 es una máquina hiperdeportiva creada por Kawasaki con tecnología derivada directamente del mundo de la aviación. Cuenta con un compresor centrífugo diseñado por Kawasaki Heavy Industries y materiales de alta resistencia.</p>
+        </div>
+        <span class="precio">Desde: 115,267,500 COP</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Kawasaki Motors. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const socialMenu = document.getElementById('social');
+    const infoBtn = document.getElementById('mas-info-btn');
+    const extraInfo = document.getElementById('extra-info');
+
+    menuBtn.addEventListener('click', () => {
+      socialMenu.classList.toggle('show');
+    });
+
+    infoBtn.addEventListener('click', () => {
+      extraInfo.style.display = extraInfo.style.display === 'block' ? 'none' : 'block';
+    });
+  </script>
+</body>
+</html>
